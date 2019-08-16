@@ -1,18 +1,22 @@
 package common
 
 import (
+	"fmt"
 	"log"
 	"runtime"
 )
 
 func PrintRecoverFromPanic(param ...interface{}) {
-	if err := recover(); err != nil {
-		panicStack(err)
+	var PanicStack []interface{}
+	if x := recover(); x != nil {
+		PanicStack = append(PanicStack, fmt.Sprintf("PanicStack Recover:%s↓\n", x))
+		i := 0
+		funcName, file, line, ok := runtime.Caller(i)
+		for ok {
+			PanicStack = append(PanicStack, fmt.Sprintf("frame %v:[func:%v,file:%v,line:%v]\n", i, runtime.FuncForPC(funcName).Name(), file, line))
+			i++
+			funcName, file, line, ok = runtime.Caller(i)
+		}
 	}
-}
-
-func panicStack(err interface{}) {
-	var buf [4096]byte
-	n := runtime.Stack(buf[:], false)
-	log.Printf("panic %v \n%s\n", err, string(buf[:n]))
+	log.Println(PanicStack)
 }
