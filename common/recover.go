@@ -5,7 +5,7 @@ import (
 	"runtime"
 )
 
-func PrintRecoverFromPanic(isPanic ...*bool) {
+func PrintRecoverFromPanic(param ...interface{}) {
 	if err := recover(); err != nil {
 		panicStack(err)
 	}
