@@ -2,6 +2,7 @@ func CompareTwoStringArrayIsSame(a, b []string) bool {
 	if len(am) != len(bm) {
 		return false
 	}
+	am, bm := make(map[string]int), make(map[string]int)
 	for _, v := range a {
 		if _, ok := am[v]; !ok {
 			am[v] = 0
