@@ -1,5 +1,5 @@
 func CompareTwoStringArrayIsSame(a, b []string) bool {
-	if len(am) != len(bm) {
+	if len(a) != len(b) {
 		return false
 	}
 	am, bm := make(map[string]int), make(map[string]int)
